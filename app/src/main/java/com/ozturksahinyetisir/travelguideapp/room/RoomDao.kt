@@ -2,6 +2,7 @@ package com.ozturksahinyetisir.travelguideapp.room
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.ozturksahinyetisir.travelguideapp.domain.model.TravelModel
@@ -10,7 +11,7 @@ import com.ozturksahinyetisir.travelguideapp.domain.model.TravelModel
 @Dao
 interface RoomDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertTravel(travelModel: List<TravelModel>)
 
     @Query("UPDATE travel SET isBookmark = :tbookmarkStatus WHERE id = :tid")

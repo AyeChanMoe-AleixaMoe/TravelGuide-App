@@ -11,12 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#F8F8F8"
+        android:clipToPadding="false"
         tools:context=".view.home.HomeFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/_20sdp">
+            android:paddingBottom="@dimen/_80sdp">
 
             <!-- Top Bar -->
             <ImageView
@@ -383,14 +384,18 @@
                     android:orientation="vertical"
                     android:padding="@dimen/_12sdp">
 
-                    <include layout="@layout/document_item" />
+                    <include
+                        android:id="@+id/passport_visa_doc"
+                        layout="@layout/document_item" />
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@android:color/darker_gray"
                         android:layout_marginTop="@dimen/_8sdp"
                         android:layout_marginBottom="@dimen/_8sdp"/>
-                    <include layout="@layout/document_item" />
+                    <include
+                        android:id="@+id/flight_pdf_doc"
+                        layout="@layout/document_item" />
 
                 </LinearLayout>
 

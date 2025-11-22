@@ -25,6 +25,7 @@ class HomeFragment : Fragment() {
         setupQuickActions()
         setupTodaySchedule()
         setupTripBudget()
+        setupTravelDocuments()
     }
 
     private fun setupQuickActions() {
@@ -87,5 +88,17 @@ class HomeFragment : Fragment() {
         // Transport
         binding.budgetTransport.budgetIcon.setImageResource(R.drawable.public_transport)
         binding.budgetTransport.budgetAmount.text = "$77"
+    }
+
+    private fun setupTravelDocuments() {
+        // Passport & Visas
+        binding.passportVisaDoc.documentIcon.setImageResource(R.drawable.google_docs)
+        binding.passportVisaDoc.documentTitle.text = "Passport & Visas"
+        binding.passportVisaDoc.documentSubtitle.text = "Secure • PIN Enabled"
+
+        // Flight PDFs
+        binding.flightPdfDoc.documentIcon.setImageResource(R.drawable.pdf)
+        binding.flightPdfDoc.documentTitle.text = "Flight PDFs"
+        binding.flightPdfDoc.documentSubtitle.text = "NH 802 • 12 Oct • Gate 54"
     }
 }
