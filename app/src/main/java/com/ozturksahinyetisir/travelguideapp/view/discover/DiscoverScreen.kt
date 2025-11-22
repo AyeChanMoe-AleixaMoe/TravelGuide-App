@@ -20,16 +20,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
+import com.ozturksahinyetisir.travelguideapp.components.ItineraHeader
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DiscoverScreen() {
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text("Discover") },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.White)
-            )
+            Column(modifier = Modifier.padding(16.dp)) {
+                ItineraHeader()
+            }
         }
     ) {
         LazyColumn(modifier = Modifier.padding(it)) {
