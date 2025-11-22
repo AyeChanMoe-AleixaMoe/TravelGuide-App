@@ -51,7 +51,7 @@ class FlightsFragment : Fragment() {
                 response: Response<List<TravelModel>>
             ) {
                 if (response.isSuccessful) {
-                    response.body().let {responseList ->
+                    response.body()?.let {responseList ->
                         travelModel = ArrayList(responseList)
                         travelModel?.let {travelModel->
                             activity?.let { activity->

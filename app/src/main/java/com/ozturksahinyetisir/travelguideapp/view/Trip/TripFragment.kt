@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.google.android.material.tabs.TabLayoutMediator
 import com.ozturksahinyetisir.travelguideapp.R
 import com.ozturksahinyetisir.travelguideapp.adapters.ViewPagerAdapter
 import com.ozturksahinyetisir.travelguideapp.databinding.FragmentTripBinding
@@ -28,13 +29,15 @@ class TripFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         activity?.let {activity->
-            val adapter = ViewPagerAdapter(childFragmentManager)
+            val adapter = ViewPagerAdapter(childFragmentManager, viewLifecycleOwner.lifecycle)
             adapter.addFragment(TripListFragment(), "Trips")
             adapter.addFragment(BookmarkFragment(), "Bookmark")
 
             binding.viewPager.adapter = adapter
 
-            binding.tabLayout.setupWithViewPager(binding.viewPager)
+            TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+                tab.text = adapter.getPageTitle(position)
+            }.attach()
             binding.tabLayout.getTabAt(0)?.setIcon(R.drawable.ic_trip)
             binding.tabLayout.getTabAt(1)?.setIcon(R.drawable.ic_fill_bookmark)
 

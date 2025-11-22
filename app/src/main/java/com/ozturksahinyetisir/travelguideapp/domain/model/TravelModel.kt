@@ -7,7 +7,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.ozturksahinyetisir.travelguideapp.utils.Converters
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 
@@ -17,9 +17,9 @@ data class TravelModel (
     val description:String,
     val country:String,
 
-    @TypeConverters(Converters::class)
+    @field:TypeConverters(Converters::class)
     val images: MutableList<ImageRoomlist>? = null,
-    @PrimaryKey(autoGenerate = true)
+    @field:PrimaryKey(autoGenerate = true)
     val id: Int,
     val category:String?=null,
     val city:String,

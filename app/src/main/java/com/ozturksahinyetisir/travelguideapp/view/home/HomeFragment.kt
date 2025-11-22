@@ -6,54 +6,86 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.ozturksahinyetisir.travelguideapp.adapters.ViewPagerAdapter
+import com.ozturksahinyetisir.travelguideapp.R
 import com.ozturksahinyetisir.travelguideapp.databinding.FragmentHomeBinding
 
-
 class HomeFragment : Fragment() {
-    val TAG ="HomeFragment"
-
     private lateinit var binding: FragmentHomeBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?):  View {
-        binding = FragmentHomeBinding.inflate(layoutInflater)
-        /**
-         * [setOnClickListener] used for shows button as clickable and effective.
-         * Can change if created new fragments.
-         */
-        binding.flightsIcon.setOnClickListener{
-            Toast.makeText(activity, "clicked flightIcon", Toast.LENGTH_SHORT).show()
-        }
-        binding.hotelsIcon.setOnClickListener{
-            Toast.makeText(activity, "clicked HotelIcon", Toast.LENGTH_SHORT).show()
-        }
-        binding.carIcon.setOnClickListener{
-            Toast.makeText(activity, "clicked carIcon", Toast.LENGTH_SHORT).show()
-        }
-        binding.taxiIcon.setOnClickListener{
-            Toast.makeText(activity, "clicked taxiIcon", Toast.LENGTH_SHORT).show()
-        }
-
-
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
-    /**
-     * [childFragmentManager] does all effect at here. After changing fragment
-     * view pager doesn't load with supportFragmentManager.
-     * [addFraggment] creates new tabLayout with name it as "All", "Flights", "Hotels", "Transportations".
-     */
-    override fun onResume() {
-        super.onResume()
-        activity?.let {activity->
 
-            val adapter = ViewPagerAdapter(childFragmentManager)
-            adapter.addFragment(AllFragment(), "All")
-            adapter.addFragment(FlightsFragment(), "Flights")
-            adapter.addFragment(HotelsFragment(), "Hotels")
-            adapter.addFragment(TransportationsFragment(), "Transportations")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupQuickActions()
+        setupTodaySchedule()
+        setupTripBudget()
+    }
 
-            binding.viewPager.adapter = adapter
-            binding.tabLayout.setupWithViewPager(binding.viewPager)
+    private fun setupQuickActions() {
+        // Flights
+        binding.flightsAction.actionIcon.setImageResource(R.drawable.plane)
+        binding.flightsAction.actionText.text = "Flights"
+        binding.flightsAction.root.setOnClickListener {
+            Toast.makeText(context, "Flights clicked", Toast.LENGTH_SHORT).show()
         }
+
+        // Stay
+        binding.stayAction.actionIcon.setImageResource(R.drawable.suite)
+        binding.stayAction.actionText.text = "Stay"
+        binding.stayAction.root.setOnClickListener {
+            Toast.makeText(context, "Stay clicked", Toast.LENGTH_SHORT).show()
+        }
+
+        // Activities
+        binding.activitiesAction.actionIcon.setImageResource(R.drawable.checklist)
+        binding.activitiesAction.actionText.text = "Activities"
+        binding.activitiesAction.root.setOnClickListener {
+            Toast.makeText(context, "Activities clicked", Toast.LENGTH_SHORT).show()
+        }
+
+        // Expenses
+        binding.expensesAction.actionIcon.setImageResource(R.drawable.spending)
+        binding.expensesAction.actionText.text = "Expenses"
+        binding.expensesAction.root.setOnClickListener {
+            Toast.makeText(context, "Expenses clicked", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun setupTodaySchedule() {
+        // Hotel Check-In
+        binding.hotelCheckIn.scheduleIcon.setImageResource(R.drawable.check_in)
+        binding.hotelCheckIn.scheduleTitle.text = "Hotel Check-In • MBS"
+        binding.hotelCheckIn.scheduleSubtitle.text = "3:00 PM • Confirmation #SJX439"
+        binding.hotelCheckIn.actionButton.text = "Map"
+
+        // Flower Dome Ticket
+        binding.flowerDomeTicket.scheduleIcon.setImageResource(R.drawable.ticket)
+        binding.flowerDomeTicket.scheduleTitle.text = "Tickets For Flower Dome"
+        binding.flowerDomeTicket.scheduleSubtitle.text = "7:00 PM • 2 Tickets"
+        binding.flowerDomeTicket.actionButton.text = "Tickets"
+    }
+
+    private fun setupTripBudget() {
+        // Flights
+        binding.budgetFlights.budgetIcon.setImageResource(R.drawable.plane_overview)
+        binding.budgetFlights.budgetAmount.text = "$242"
+
+        // Hotel
+        binding.budgetHotel.budgetIcon.setImageResource(R.drawable.hotel)
+        binding.budgetHotel.budgetAmount.text = "$123"
+
+        // Food
+        binding.budgetFood.budgetIcon.setImageResource(R.drawable.ramen)
+        binding.budgetFood.budgetAmount.text = "$42"
+
+        // Transport
+        binding.budgetTransport.budgetIcon.setImageResource(R.drawable.public_transport)
+        binding.budgetTransport.budgetAmount.text = "$77"
     }
 }
