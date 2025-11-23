@@ -14,15 +14,23 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberAsyncImagePainter
 import com.ozturksahinyetisir.travelguideapp.R
 import com.ozturksahinyetisir.travelguideapp.components.ItineraHeader
+import com.ozturksahinyetisir.travelguideapp.view.wallet.TripBudgetCard
+import com.ozturksahinyetisir.travelguideapp.view.wallet.WalletViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(walletViewModel: WalletViewModel = viewModel()) {
     var showPinDialog by remember { mutableStateOf(false) }
     var pinValue by remember { mutableStateOf("") }
+
+    val expenses by walletViewModel.expenses
+    val totalSpent = expenses.sumOf { it.amount }
+    val budget = 1055.0
+    val remaining = budget - totalSpent
 
     Scaffold(
         topBar = {
@@ -35,7 +43,7 @@ fun HomeScreen() {
             item { TopCard() }
             item { QuickActionsCard() }
             item { TodayScheduleCard() }
-            item { TripBudgetCard() }
+            item { TripBudgetCard(totalSpent, budget, remaining) }
             item { TravelDocumentsCard(onOpenClick = { showPinDialog = true }) }
         }
     }
@@ -72,7 +80,9 @@ fun HomeScreen() {
 @Composable
 fun TopCard() {
     Card(
-        modifier = Modifier.fillMaxWidth().padding(16.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White)
     ) {
@@ -85,30 +95,105 @@ fun TopCard() {
                 Text("Tokyo Getaway", fontWeight = FontWeight.Bold)
                 Text("12 - 18 Oct • 2 Travelers • 4 Items Today", style = MaterialTheme.typography.bodySmall, color = Color.Gray)
             }
-            Text("in 5 Days", color = Color(0xFF7B68EE), modifier = Modifier.background(Color(0xFFE6E6FA), RoundedCornerShape(12.dp)).padding(horizontal = 12.dp, vertical = 6.dp))
+            Text("in 5 Days", color = Color(0xFF7B68EE), modifier = Modifier
+                .background(Color(0xFFE6E6FA), RoundedCornerShape(12.dp))
+                .padding(horizontal = 12.dp, vertical = 6.dp))
         }
     }
 }
 
 @Composable
 fun QuickActionsCard() {
-    // ... existing composable ...
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        shape = RoundedCornerShape(12.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.White)
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text("Quick Actions", fontWeight = FontWeight.Bold, fontSize = 18.sp)
+            Spacer(modifier = Modifier.height(16.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceAround
+            ) {
+                QuickActionItem(icon = R.drawable.plane, text = "Flights")
+                QuickActionItem(icon = R.drawable.suite, text = "Stay")
+                QuickActionItem(icon = R.drawable.checklist, text = "Activities")
+                QuickActionItem(icon = R.drawable.spending, text = "Expenses")
+            }
+        }
+    }
+}
+
+@Composable
+fun QuickActionItem(icon: Int, text: String) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Image(
+            painter = rememberAsyncImagePainter(icon),
+            contentDescription = null,
+            modifier = Modifier.size(40.dp)
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(text, fontSize = 12.sp)
+    }
 }
 
 @Composable
 fun TodayScheduleCard() {
-    // ... existing composable ...
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        shape = RoundedCornerShape(12.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.White)
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text("Today's Schedule", fontWeight = FontWeight.Bold, fontSize = 18.sp)
+            Spacer(modifier = Modifier.height(16.dp))
+            ScheduleItem(
+                icon = R.drawable.check_in,
+                title = "Hotel Check-In • MBS",
+                subtitle = "3:00 PM • Confirmation #SJX439",
+                buttonText = "Map"
+            )
+            Divider(modifier = Modifier.padding(vertical = 8.dp), color = Color.LightGray)
+            ScheduleItem(
+                icon = R.drawable.ticket,
+                title = "Tickets For Flower Dome",
+                subtitle = "7:00 PM • 2 Tickets",
+                buttonText = "Tickets"
+            )
+        }
+    }
 }
 
 @Composable
-fun TripBudgetCard() {
-    // ... existing composable ...
+fun ScheduleItem(icon: Int, title: String, subtitle: String, buttonText: String) {
+    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
+        Image(
+            painter = rememberAsyncImagePainter(icon),
+            contentDescription = null,
+            modifier = Modifier.size(40.dp)
+        )
+        Spacer(modifier = Modifier.width(16.dp))
+        Column(modifier = Modifier.weight(1f)) {
+            Text(title, fontWeight = FontWeight.Bold)
+            Text(subtitle, style = MaterialTheme.typography.bodySmall, color = Color.Gray)
+        }
+        Button(onClick = { /*TODO*/ }) {
+            Text(buttonText)
+        }
+    }
 }
 
 @Composable
 fun TravelDocumentsCard(onOpenClick: () -> Unit) {
     Card(
-        modifier = Modifier.fillMaxWidth().padding(16.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White)
     ) {
@@ -124,7 +209,7 @@ fun TravelDocumentsCard(onOpenClick: () -> Unit) {
 
 @Composable
 fun DocumentItem(icon: Int, title: String, subtitle: String, onOpenClick: () -> Unit) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
+    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
         Image(painter = rememberAsyncImagePainter(icon), contentDescription = null, modifier = Modifier.size(40.dp))
         Spacer(modifier = Modifier.width(16.dp))
         Column(modifier = Modifier.weight(1f)) {
