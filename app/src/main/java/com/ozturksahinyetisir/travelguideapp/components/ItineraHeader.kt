@@ -21,7 +21,7 @@ import com.ozturksahinyetisir.travelguideapp.R
 fun ItineraHeader() {
     Row(verticalAlignment = Alignment.CenterVertically) {
         Image(
-            painter = rememberAsyncImagePainter(R.drawable.itinera_logo),
+            painter = rememberAsyncImagePainter(R.mipmap.itinera_logo),
             contentDescription = "Itinera Logo",
             modifier = Modifier.size(40.dp)
         )

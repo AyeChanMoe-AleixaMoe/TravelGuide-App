@@ -33,28 +33,28 @@ class HomeFragment : Fragment() {
         binding.flightsAction.actionIcon.setImageResource(R.drawable.plane)
         binding.flightsAction.actionText.text = "Flights"
         binding.flightsAction.root.setOnClickListener {
-            Toast.makeText(context, "Flights clicked", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Flights clicked", Toast.LENGTH_SHORT).show()
         }
 
         // Stay
         binding.stayAction.actionIcon.setImageResource(R.drawable.suite)
         binding.stayAction.actionText.text = "Stay"
         binding.stayAction.root.setOnClickListener {
-            Toast.makeText(context, "Stay clicked", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Stay clicked", Toast.LENGTH_SHORT).show()
         }
 
         // Activities
         binding.activitiesAction.actionIcon.setImageResource(R.drawable.checklist)
         binding.activitiesAction.actionText.text = "Activities"
         binding.activitiesAction.root.setOnClickListener {
-            Toast.makeText(context, "Activities clicked", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Activities clicked", Toast.LENGTH_SHORT).show()
         }
 
         // Expenses
         binding.expensesAction.actionIcon.setImageResource(R.drawable.spending)
         binding.expensesAction.actionText.text = "Expenses"
         binding.expensesAction.root.setOnClickListener {
-            Toast.makeText(context, "Expenses clicked", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Expenses clicked", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -91,14 +91,18 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupTravelDocuments() {
-        // Passport & Visas
         binding.passportVisaDoc.documentIcon.setImageResource(R.drawable.google_docs)
         binding.passportVisaDoc.documentTitle.text = "Passport & Visas"
         binding.passportVisaDoc.documentSubtitle.text = "Secure • PIN Enabled"
+        binding.passportVisaDoc.openButton.setOnClickListener {
+            Toast.makeText(requireContext(), "Opening Passport & Visas...", Toast.LENGTH_SHORT).show()
+        }
 
-        // Flight PDFs
         binding.flightPdfDoc.documentIcon.setImageResource(R.drawable.pdf)
         binding.flightPdfDoc.documentTitle.text = "Flight PDFs"
         binding.flightPdfDoc.documentSubtitle.text = "NH 802 • 12 Oct • Gate 54"
+        binding.flightPdfDoc.openButton.setOnClickListener {
+            Toast.makeText(requireContext(), "Opening Flight PDFs...", Toast.LENGTH_SHORT).show()
+        }
     }
 }

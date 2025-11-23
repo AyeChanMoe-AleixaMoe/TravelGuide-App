@@ -1,80 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.ozturksahinyetisir.travelguideapp.view.home.HomeFragment"
-        android:label="HomeFragment" >
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_homeFragment_to_guideFragment"
-            app:destination="@id/guideFragment" />
+            android:id="@+id/action_homeFragment_to_documentsFragment"
+            app:destination="@id/documentsFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_tripFragment"
-            app:destination="@id/tripFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_detailActivity"
-            app:destination="@id/detailActivity" />
-    </fragment>
-    <activity
-        android:id="@+id/mainActivity"
-        android:name="com.ozturksahinyetisir.travelguideapp.view.MainActivity"
-        android:label="MainActivity" />
-    <fragment
-        android:id="@+id/guideFragment"
-        android:name="com.ozturksahinyetisir.travelguideapp.view.guide.GuideFragment"
-        android:label="GuideFragment" >
-        <action
-            android:id="@+id/action_guideFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-        <action
-            android:id="@+id/action_guideFragment_to_detailActivity"
-            app:destination="@id/detailActivity" />
-    </fragment>
-    <fragment
-        android:id="@+id/tripFragment"
-        android:name="com.ozturksahinyetisir.travelguideapp.view.Trip.TripFragment"
-        android:label="TripFragment" >
-        <action
-            android:id="@+id/action_tripFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-        <action
-            android:id="@+id/action_tripFragment_to_detailActivity"
-            app:destination="@id/detailActivity" />
-        <action
-            android:id="@+id/action_tripFragment_to_tripListFragment"
-            app:destination="@id/tripListFragment" />
+            android:id="@+id/action_homeFragment_to_pinEntryDialogFragment"
+            app:destination="@id/pinEntryDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.ozturksahinyetisir.travelguideapp.view.Search.SearchFragment"
-        android:label="SearchFragment" >
-        <action
-            android:id="@+id/action_searchFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-        <action
-            android:id="@+id/action_searchFragment_to_detailActivity"
-            app:destination="@id/detailActivity" />
-    </fragment>
-    <activity
-        android:id="@+id/detailActivity"
-        android:name="com.ozturksahinyetisir.travelguideapp.view.DetailActivity"
-        android:label="DetailActivity" />
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
     <fragment
-        android:id="@+id/newTripFragment"
-        android:name="com.ozturksahinyetisir.travelguideapp.view.Trip.NewTripFragment"
-        android:label="NewTripFragment" />
+        android:id="@+id/tripFragment"
+        android:name="com.ozturksahinyetisir.travelguideapp.view.Trip.TripFragment"
+        android:label="fragment_trip"
+        tools:layout="@layout/fragment_trip" />
     <fragment
-        android:id="@+id/tripListFragment"
-        android:name="com.ozturksahinyetisir.travelguideapp.view.Trip.TripListFragment"
-        android:label="TripListFragment" >
+        android:id="@+id/guideFragment"
+        android:name="com.ozturksahinyetisir.travelguideapp.view.guide.GuideFragment"
+        android:label="GuideFragment"
+        tools:layout="@layout/fragment_guide" />
+
+    <fragment
+        android:id="@+id/documentsFragment"
+        android:name="com.ozturksahinyetisir.travelguideapp.view.home.DocumentsFragment"
+        android:label="fragment_documents"
+        tools:layout="@layout/fragment_documents" />
+
+    <dialog
+        android:id="@+id/pinEntryDialogFragment"
+        android:name="com.ozturksahinyetisir.travelguideapp.view.home.PinEntryDialogFragment"
+        android:label="fragment_pin_entry"
+        tools:layout="@layout/fragment_pin_entry" >
         <action
-            android:id="@+id/action_tripListFragment_to_newTripFragment"
-            app:destination="@id/newTripFragment" />
-    </fragment>
+            android:id="@+id/action_pinEntryDialogFragment_to_documentsFragment"
+            app:destination="@id/documentsFragment" />
+    </dialog>
+
 </navigation>
