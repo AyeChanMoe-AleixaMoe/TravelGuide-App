@@ -27,11 +27,3 @@ To get started with the app, you'll need:
 - **Android SDK**
 - An active **internet connection**
 
-## Screenshots
-
-![home](https://github.com/user-attachments/assets/c629d7a1-70f9-4e9a-bf98-3511d3309e8a)
-![search](https://github.com/user-attachments/assets/4158a741-8b71-4dc1-b42f-790b723fd1f4)
-![bookmark](https://github.com/user-attachments/assets/aa88e6a3-f474-45bb-b397-c906de7b147d)
-![guide](https://github.com/user-attachments/assets/3ccaa238-8d6d-4d81-9892-513e3966d533)
-![detail](https://github.com/user-attachments/assets/80eeba53-1658-457c-bba0-80cc6a103a9e)
-![newtrip](https://github.com/user-attachments/assets/5c111ff3-97af-4efd-9ea2-b7227a441b85)
