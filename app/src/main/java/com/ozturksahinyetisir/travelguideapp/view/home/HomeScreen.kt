@@ -10,10 +10,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberAsyncImagePainter
 import com.ozturksahinyetisir.travelguideapp.R
@@ -25,6 +27,7 @@ import com.ozturksahinyetisir.travelguideapp.view.wallet.WalletViewModel
 @Composable
 fun HomeScreen(walletViewModel: WalletViewModel = viewModel()) {
     var showPinDialog by remember { mutableStateOf(false) }
+    var showDocument by remember { mutableStateOf(false) }
     var pinValue by remember { mutableStateOf("") }
 
     val expenses by walletViewModel.expenses
@@ -62,7 +65,7 @@ fun HomeScreen(walletViewModel: WalletViewModel = viewModel()) {
                 Button(onClick = {
                     if (pinValue == "1234") { // Example PIN
                         showPinDialog = false
-                        // In a real app, you would navigate to the document viewer here
+                        showDocument = true
                     }
                 }) {
                     Text("Confirm")
@@ -74,6 +77,25 @@ fun HomeScreen(walletViewModel: WalletViewModel = viewModel()) {
                 }
             }
         )
+    }
+
+    if (showDocument) {
+        Dialog(onDismissRequest = { showDocument = false }) {
+            Box(modifier = Modifier.fillMaxSize()) {
+                Image(
+                    painter = rememberAsyncImagePainter("file:///android_asset/jamescook_student_card.jpg"),
+                    contentDescription = null,
+                    modifier = Modifier.fillMaxSize(),
+                    contentScale = ContentScale.Fit
+                )
+                Button(
+                    onClick = { showDocument = false },
+                    modifier = Modifier.align(Alignment.TopEnd).padding(16.dp)
+                ) {
+                    Text("Close")
+                }
+            }
+        }
     }
 }
 
