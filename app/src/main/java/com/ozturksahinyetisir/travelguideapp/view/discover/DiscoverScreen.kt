@@ -2,6 +2,7 @@ package com.ozturksahinyetisir.travelguideapp.view.discover
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -24,7 +25,7 @@ import com.ozturksahinyetisir.travelguideapp.components.ItineraHeader
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DiscoverScreen() {
+fun DiscoverScreen(onItineraryClick: () -> Unit = {}) {
     Scaffold(
         topBar = {
             Column(modifier = Modifier.padding(16.dp)) {
@@ -34,7 +35,7 @@ fun DiscoverScreen() {
     ) {
         LazyColumn(modifier = Modifier.padding(it)) {
             item { SearchBarSection() }
-            item { TripIdeasSection() }
+            item { TripIdeasSection(onItineraryClick) }
             item { PopularDestinationsSection() }
             item { NearbyAttractionsSection() }
             item { FoodAndCafesSection() }
@@ -64,7 +65,7 @@ fun SearchBarSection() {
 }
 
 @Composable
-fun TripIdeasSection() {
+fun TripIdeasSection(onItineraryClick: () -> Unit) {
     val tripIdeas = listOf(
         Triple("3-Day Budget Trip in Tokyo", "Itinerary · Solo / Friends", "https://picsum.photos/seed/1/400/300"),
         Triple("Family Weekend in Sydney", "Itinerary · Family friendly", "https://picsum.photos/seed/2/400/300")
@@ -73,7 +74,9 @@ fun TripIdeasSection() {
     Section("Trip ideas from other travellers", "Browse ready-made itineraries and travel guides shared by the community.") {
         LazyRow(contentPadding = PaddingValues(horizontal = 16.dp), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
             items(tripIdeas) { (title, subtitle, imageUrl) ->
-                Card(modifier = Modifier.width(250.dp)) {
+                Card(modifier = Modifier
+                    .width(250.dp)
+                    .clickable { onItineraryClick() }) {
                     Box {
                         Image(painter = rememberAsyncImagePainter(imageUrl), contentDescription = null, modifier = Modifier.height(150.dp), contentScale = ContentScale.Crop)
                         Text("ITINERARY", style = MaterialTheme.typography.labelSmall, modifier = Modifier.padding(8.dp).background(Color.Black.copy(alpha = 0.5f), RoundedCornerShape(4.dp)).padding(4.dp), color = Color.White)
